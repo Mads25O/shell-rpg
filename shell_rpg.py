@@ -72,23 +72,28 @@ def main():
     print(f"Welcome to Shell RPG {name}!")
     while running:
         action = input("What do you want to do? > ").lower()
+        
         if action == 'help':
             print("Uhhh, haven't made it yet, sorry.")
+
         elif action == 'profile':
             print(f"--- Profile for {name} ---")
             print(f"Health: {player.health}")
             print(f"Level: {player.level}")
             print(f"Experience: {player.experience}/{player.experience_for_next_level}")
             print(f"Coins: {player.coins}")
+
         elif action == 'hunt':
             monster_type, damage, experience, coins = monster()
             player.take_damage(damage)
             player.gain_experience(experience)
             player.gain_coins(coins)
             print(f"You killed a {monster_type}! You took {damage} damage, gained {experience} experience and got {coins} coins. Your health: {player.health}")
+
         elif action == 'heal':
             player.heal(10)
             print(f"Healed! Health: {player.health}")
+            
         else:
             print("Don't know what you mean there, buddy. Type 'help' to read all commands.")
 
