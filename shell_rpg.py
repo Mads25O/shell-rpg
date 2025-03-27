@@ -61,8 +61,6 @@ class Player:
         self.health += amount
         if self.health > self.max_health:
             self.health = self.max_health
-    
-
 
 def main():
     running = True
@@ -72,7 +70,7 @@ def main():
     print(f"Welcome to Shell RPG {name}!")
     while running:
         action = input("What do you want to do? > ").lower()
-        
+
         if action == 'help':
             print("Uhhh, haven't made it yet, sorry.")
 
@@ -93,11 +91,13 @@ def main():
         elif action == 'heal':
             player.heal(10)
             print(f"Healed! Health: {player.health}")
+
+        elif action == 'exit':
+            print('Byeeee')
+            running = False
             
         else:
             print("Don't know what you mean there, buddy. Type 'help' to read all commands.")
-
-    
 
 if __name__ == '__main__':
     main()
