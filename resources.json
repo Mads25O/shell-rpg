@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Stone",
+        "description": "A stone.. Duh.",
+        "quantity": 0
+    },
+    {
+        "name": "Logs",
+        "description": "Some tree logs",
+        "quantity": 0
+    }
+]

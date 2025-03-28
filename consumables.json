@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Apple",
+        "healing": 10,
+        "description": "A tasty apple.",
+        "quantity": 0
+    },
+    {
+        "name": "Potion",
+        "healing": 25,
+        "description": "A magical potion (def not cum)",
+        "quantity": 0
+    }
+]

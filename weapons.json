@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Sword",
+        "damage": 10,
+        "durability": 100,
+        "description": "A wooden sword."
+    },
+    {
+        "name": "Katana",
+        "damage": 15,
+        "durability": 80,
+        "description": "A katana."
+    }
+]
