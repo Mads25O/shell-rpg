@@ -8,5 +8,26 @@
         "name": "Logs",
         "description": "Some tree logs",
         "quantity": 0
+    },
+    {
+        "name": "Rotten Flesh",
+        "description": "Rotten Flesh desc",
+        "quantity": 0
+    },
+    {
+        "name": "Bones",
+        "description": "Bones desc",
+        "quantity": 0
+    },
+    {
+        "name": "Spider Silk",
+        "description": "Spider Silk desc",
+        "quantity": 0
+    },
+    {
+        "name": "Poison Gland",
+        "description": "Poison Gland desc",
+        "quantity": 0
     }
+    
 ]

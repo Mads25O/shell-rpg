@@ -26,7 +26,7 @@ class Items:
         for category, items in self.item_data.items():
             for item in items:
                 if item["name"].lower() == item_name.lower():
-                    return item
+                    return {**item, "category": category}
         return None
     
     def get_category_items(self, category):
@@ -62,6 +62,17 @@ class Player:
             print(f"Added {quantity} {resource_name}(s) to your inventory.")
         else:
             print(f"{resource_name} not found.")
+
+    def collect_loot(self, loot_list):
+        for loot_item in loot_list:
+            item_data = self.items_manager.get_item(loot_item)
+            if item_data:
+                if item_data["category"] == "resources":
+                    self.add_resource(loot_item, 1)
+                elif item_data["category"] == "consumables":
+                    self.add_consumable(loot_item, 1)
+                else:
+                    print(f"Warning: {loot_item} has unknown category!")
     
     def add_consumable(self, consumable_name, quantity):
         consumable = self.items_manager.get_item(consumable_name)
@@ -145,8 +156,8 @@ class Player:
         if not self.resources:
             print("No resources.")
         else:
-            for resource, quantity in self.resources.items():
-                print(f"{resource}: {quantity}")
+            for resource, attributes in self.resources.items():
+                print(f"{resource}: {attributes["quantity"]} - {attributes["description"]}")
 
         print("\nConsumables:")
         if not self.consumables:
