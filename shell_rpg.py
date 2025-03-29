@@ -1,51 +1,6 @@
 import random
 from classes import Player, Enemies
 
-class Shop:
-    def __init__(self):
-        pass
-
-    def buy(self):
-        pass
-
-    def sell(self):
-        pass
-
-class Quests:
-    def __init__(self):
-        pass
-
-
-# Mining og fishing
-# man kan få sten gennem mining. man får x antal sten baseret på ens pickaxe. % chance for at få ore.
-# ore: iron, gold, silver, coal, diamond, emerald.
-# ore skal kunne smeltes, og det man får ud af dem kan man bruge til crafting
-class Action:
-    def __init__(self):
-        pass
-
-    def mining(self):
-        player = Player()
-
-
-    def fishing(self):
-        pass
-
-    def chopping(self):
-        pass
-
-    def farming(self):
-        pass
-
-class Crafting:
-    def __init__(self):
-        pass
-# Enemies need to get loaded from json files.
-# Their attack vary from monster to monster. Pick random number between min_attack and max_attack.
-
-
-
-
 def main():
     running = True
 
