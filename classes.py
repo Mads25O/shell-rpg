@@ -34,6 +34,9 @@ class Items:
 
 class Player:
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.level = 1
         self.experience = 0
         self.experience_for_next_level = 100
@@ -42,13 +45,40 @@ class Player:
         self.speed = 1
         self.defence = 0
         self.coins = 0
+        self.dead = False
 
         self.items_manager = Items()
         self.resources =  {}
         self.weapons = {}
         self.consumables = {}
+
+    def gain_experience(self, experience):
+        self.experience += experience
+        if self.experience >= self.experience_for_next_level:
+            self.level += 1
+            self.experience = 0
+            self.experience_for_next_level += 5
+            print(f"Gained new level! Now level: {self.level}")
+
+    def gain_coins(self, coins):
+        self.coins += coins
     
-    ## RESOURCES ##
+    ## HEALTH SYSTEM ##
+    def take_damage(self, damage):
+        self.health -= damage
+        if self.health <= 0:
+            self.death()
+
+    def death(self):
+        print("DEAD! GAME OVER")
+        self.dead = True
+    
+    def heal(self, amount):
+        self.health += amount
+        if self.health > self.max_health:
+            self.health = self.max_health
+    
+    ## ITEMS ##
     def add_resource(self, resource_name, quantity):
         resource = self.items_manager.get_item(resource_name)
         if resource:
@@ -167,33 +197,6 @@ class Player:
                 print(f"{item}: {quantity}")
 
         print("\n-----------------\n")
-
-
-    def gain_experience(self, experience):
-        self.experience += experience
-        if self.experience >= self.experience_for_next_level:
-            self.level += 1
-            self.experience = 0
-            self.experience_for_next_level += 5
-            print(f"Gained new level! Now level: {self.level}")
-
-    def gain_coins(self, coins):
-        self.coins += coins
-    
-    ## HEALTH SYSTEM ##
-    def take_damage(self, damage):
-        self.health -= damage
-        if self.health <= 0:
-            self.death()
-
-    def death(self):
-        print("YOU DIED! GAME OVER")
-        sys.exit()
-    
-    def heal(self, amount):
-        self.health += amount
-        if self.health > self.max_health:
-            self.health = self.max_health
 
 class Enemies:
     def __init__(self):

@@ -6,10 +6,15 @@ def main():
 
     player = Player()
     enemies = Enemies()
-    #name = input("What is your name? > ")
-    name = 'Mads'
-    print(f"Welcome to Shell RPG {name}!")
+    start = True
+    
     while running:
+        if start == True:
+            #name = input("What is your name? > ")
+            name = 'Mads'
+            print(f"Welcome to Shell RPG {name}!")
+            start = False
+
         action = input("What do you want to do? > ").lower()
 
         if action == 'help':
@@ -28,17 +33,26 @@ def main():
         elif action == 'hunt':
             enemy = enemies.generate_enemy()
             player.take_damage(enemy["attack"])
-            player.gain_experience(enemy["experience"])
-            player.gain_coins(enemy["coins"])
-            player.collect_loot(enemy["loot"])
-            print(f"You killed a {enemy['name']}! You took {enemy['attack']} damage, gained {enemy['experience']} experience and got {enemy['coins']} coins. Your health: {player.health}")
+            if player.dead == False:
+                player.gain_experience(enemy["experience"])
+                player.gain_coins(enemy["coins"])
+                player.collect_loot(enemy["loot"])
+                
+                print(f"You killed a {enemy['name']}! You took {enemy['attack']} damage, gained {enemy['experience']} experience and got {enemy['coins']} coins. Your health: {player.health}")
+
+            else:
+                try_again = input("Do you want to try again? - Yes / No -\n> ")
+                if try_again == 'yes' or try_again == 'y':
+                    player.reset()
+                    start = True
+                elif try_again == 'no' or try_again == 'n':
+                    running = False
 
         elif action == 'heal':
             player.heal(20)
             print(f"Healed! Health: {player.health}")
 
         elif action == 'exit':
-            print('Byeeee')
             running = False
 
         elif action == 'buy':
@@ -48,6 +62,8 @@ def main():
             
         else:
             print("Don't know what you mean there, buddy. Type 'help' to read all commands.")
+    
+    print('Byeeee')
 
 if __name__ == '__main__':
     main()
