@@ -31,7 +31,7 @@ def main():
             player.gain_experience(enemy["experience"])
             player.gain_coins(enemy["coins"])
             player.collect_loot(enemy["loot"])
-            print(f"You killed a {enemy["name"]}! You took {enemy["attack"]} damage, gained {enemy["experience"]} experience and got {enemy["coins"]} coins. Your health: {player.health}")
+            print(f"You killed a {enemy['name']}! You took {enemy['attack']} damage, gained {enemy['experience']} experience and got {enemy['coins']} coins. Your health: {player.health}")
 
         elif action == 'heal':
             player.heal(20)

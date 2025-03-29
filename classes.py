@@ -157,7 +157,7 @@ class Player:
             print("No resources.")
         else:
             for resource, attributes in self.resources.items():
-                print(f"{resource}: {attributes["quantity"]} - {attributes["description"]}")
+                print(f'{resource}: {attributes["quantity"]} - {attributes["description"]}')
 
         print("\nConsumables:")
         if not self.consumables:
