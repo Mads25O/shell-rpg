@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "name": "Dragon",
+        "min_attack": 50,
+        "max_attack": 80,
+        "hp": 300,
+        "experience": 500,
+        "loot": ["Dragon Scale", "Coins"]
+    }
+]

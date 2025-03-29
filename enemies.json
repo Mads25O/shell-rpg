@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Zombie",
+        "min_attack": 20,
+        "max_attack": 25,
+        "hp": 50,
+        "min_experience": 25,
+        "max_experience": 30,
+        "min_coins": 20,
+        "max_coins": 25,
+        "loot": ["Rotten Flesh", "Bones"]
+    },
+    {
+        "id": 2,
+        "name": "Spider",
+        "min_attack": 15,
+        "max_attack": 20,
+        "hp": 40,
+        "min_experience": 20,
+        "max_experience": 25,
+        "min_coins": 15,
+        "max_coins": 20,
+        "loot": ["Spider Silk", "Poison Gland"]
+    }
+]

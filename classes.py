@@ -1,4 +1,6 @@
 import json
+import sys
+import random
 
 class Items:
     def __init__(self):
@@ -174,13 +176,43 @@ class Player:
             self.death()
 
     def death(self):
-        print("Oh no! You died :(. You lost EVEYTHING!!")
-        self.weapons.clear()
-        self.resources.clear()
-        self.consumables.clear()
-        self.coins = 0
+        print("YOU DIED! GAME OVER")
+        sys.exit()
     
     def heal(self, amount):
         self.health += amount
         if self.health > self.max_health:
             self.health = self.max_health
+
+class Enemies:
+    def __init__(self):
+        self.file_path = "enemies.json"
+        self.all_enemies = self.load_enemies()
+    
+    def load_enemies(self):
+        try:
+            with open(self.file_path, "r") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print(f"Error: {self.file_path} not found!")
+            return []
+        
+    def get_random_enemy(self):
+        return random.choice(self.all_enemies) if self.all_enemies else None
+    
+    def generate_enemy(self):
+        enemy = self.get_random_enemy()
+        return {
+            "name": enemy["name"],
+            "attack": random.randint(enemy["min_attack"], enemy["max_attack"]),
+            "hp": enemy["hp"],
+            "experience": random.randint(enemy["min_experience"], enemy["max_experience"]),
+            "coins": random.randint(enemy["min_coins"], enemy["max_coins"]),
+            "loot": self.get_loot(enemy)
+
+        }
+    
+    def get_loot(self, enemy):
+        max_drops = random.randint(1, 5)
+        return random.choices(enemy["loot"], k=max_drops)
+        

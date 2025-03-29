@@ -1,5 +1,5 @@
 import random
-from classes import Player
+from classes import Player, Enemies
 
 class Shop:
     def __init__(self):
@@ -40,20 +40,17 @@ class Action:
 class Crafting:
     def __init__(self):
         pass
+# Enemies need to get loaded from json files.
+# Their attack vary from monster to monster. Pick random number between min_attack and max_attack.
 
-def monster():
-    type = "Zombie"
-    attack = random.randint(1, 10)
-    experience = random.randint(10, 20)
-    coins = random.randint(5, 15)
 
-    return type, attack, experience, coins
 
 
 def main():
     running = True
 
     player = Player()
+    enemies = Enemies()
     #name = input("What is your name? > ")
     name = 'Mads'
     print(f"Welcome to Shell RPG {name}!")
@@ -74,11 +71,11 @@ def main():
             player.inventory()
 
         elif action == 'hunt':
-            monster_type, damage, experience, coins = monster()
-            player.take_damage(damage)
-            player.gain_experience(experience)
-            player.gain_coins(coins)
-            print(f"You killed a {monster_type}! You took {damage} damage, gained {experience} experience and got {coins} coins. Your health: {player.health}")
+            enemy = enemies.generate_enemy()
+            player.take_damage(enemy["attack"])
+            player.gain_experience(enemy["experience"])
+            player.gain_coins(enemy["coins"])
+            print(f"You killed a {enemy["name"]}! You took {enemy["attack"]} damage, gained {enemy["experience"]} experience and got {enemy["coins"]} coins. Your health: {player.health}")
 
         elif action == 'heal':
             player.heal(10)
