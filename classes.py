@@ -120,16 +120,18 @@ class Player:
             print(f"{consumable_name} not found.")
     
     def use_consumable(self, consumable_name):
-        if consumable_name in self.consumables and self.consumables[consumable_name]["quantity"] > 0:
-            healing_amount = self.consumables[consumable_name]["healing"]
+        matching_key = next((key for key in self.consumables if key.lower() == consumable_name), None)
+        
+        if matching_key and self.consumables[matching_key]["quantity"] > 0:
+            healing_amount = self.consumables[matching_key]["healing"]
             self.heal(healing_amount)
             
-            self.consumables[consumable_name]["quantity"] -= 1
+            self.consumables[matching_key]["quantity"] -= 1
 
-            print(f"Used {consumable_name}. Health is now {self.health}.")
+            print(f"Used {matching_key}. Health is now {self.health}.")
 
-            if self.consumables[consumable_name]["quantity"] <= 0:
-                del self.consumables[consumable_name]
+            if self.consumables[matching_key]["quantity"] <= 0:
+                del self.consumables[matching_key]
         else:
             print(f"{consumable_name} not found or out of stock.")
 
@@ -187,14 +189,14 @@ class Player:
             print("No resources.")
         else:
             for resource, attributes in self.resources.items():
-                print(f'{resource}: {attributes["quantity"]} - {attributes["description"]}')
+                print(f"{resource}: {attributes['quantity']} - {attributes['description']}")
 
         print("\nConsumables:")
         if not self.consumables:
             print("No consumables.")
         else:
-            for item, quantity in self.consumables.items():
-                print(f"{item}: {quantity}")
+            for item, attributes in self.consumables.items():
+                print(f"{item}: {attributes['quantity']}")
 
         print("\n-----------------\n")
 
