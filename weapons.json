@@ -1,11 +1,13 @@
 [
     {
+        "id": 1,
         "name": "Sword",
         "damage": 10,
         "durability": 100,
         "description": "A wooden sword."
     },
     {
+        "id": 2,
         "name": "Katana",
         "damage": 15,
         "durability": 80,

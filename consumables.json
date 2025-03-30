@@ -1,11 +1,13 @@
 [
     {
+        "id": 1,
         "name": "Apple",
         "healing": 10,
         "description": "A tasty apple.",
         "quantity": 0
     },
     {
+        "id": 2,
         "name": "Potion",
         "healing": 25,
         "description": "A magical potion (def not cum)",
