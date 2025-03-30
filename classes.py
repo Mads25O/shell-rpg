@@ -1,6 +1,7 @@
 import json
 import sys
 import random
+import math
 
 class Items:
     def __init__(self):
@@ -112,17 +113,6 @@ class Player:
                     self.add_consumable(loot_item, loot_dict[loot_item])
                 else:
                     print(f"Warning: {loot_item} has unknown category!")
-                    '''
-        loot_list = ["Rotten Flesh", "Bones", "Rotten Flesh", "Rotten Flesh"]
-        for loot_item in loot_list:
-            item_data = self.items_manager.get_item(loot_item)
-            if item_data:
-                if item_data["category"] == "resources":
-                    self.add_resource(loot_item, 1)
-                elif item_data["category"] == "consumables":
-                    self.add_consumable(loot_item, 1)
-                else:
-                    print(f"Warning: {loot_item} has unknown category!")'''
     
     def add_consumable(self, consumable_name, quantity):
         consumable = self.items_manager.get_item(consumable_name)
@@ -232,17 +222,30 @@ class Enemies:
             print(f"Error: {self.file_path} not found!")
             return []
         
-    def get_random_enemy(self):
-        return random.choice(self.all_enemies) if self.all_enemies else None
+    def get_random_enemy(self, player_level):
+        valid_enemies = [
+            enemy for enemy in self.all_enemies
+            if enemy["player_level_range"][0] <= player_level <= enemy["player_level_range"][1]
+        ]
+        return random.choice(valid_enemies) if valid_enemies else None
+        
     
-    def generate_enemy(self):
-        enemy = self.get_random_enemy()
+    def scale_stat(self, base, level, variance=0.1):
+        scaled = base * (1 + math.log(level + 1))
+        variance_amount = scaled * random.uniform(-variance, variance)
+        return int(scaled + variance_amount)
+    
+    def generate_enemy(self, player_level):
+        enemy = self.get_random_enemy(player_level)
+        level = random.randint(*enemy["level_range"])
+
         return {
             "name": enemy["name"],
-            "attack": random.randint(enemy["min_attack"], enemy["max_attack"]),
-            "hp": enemy["hp"],
-            "experience": random.randint(enemy["min_experience"], enemy["max_experience"]),
-            "coins": random.randint(enemy["min_coins"], enemy["max_coins"]),
+            "level": level,
+            "attack": self.scale_stat(enemy["base_attack"], level),
+            "hp": self.scale_stat(enemy["base_hp"], level),
+            "experience": self.scale_stat(enemy["base_experience"], level),
+            "coins": self.scale_stat(enemy["base_coins"], level),
             "loot": self.get_loot(enemy)
 
         }
@@ -293,5 +296,3 @@ class Action:
 class Crafting:
     def __init__(self):
         pass
-# Enemies need to get loaded from json files.
-# Their attack vary from monster to monster. Pick random number between min_attack and max_attack.

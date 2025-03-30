@@ -7,6 +7,8 @@ def main():
     player = Player()
     enemies = Enemies()
     start = True
+
+    space_and = " & "
     
     while running:
         if start == True:
@@ -40,13 +42,15 @@ def main():
                 player.inventory()
 
             elif action == 'hunt':
-                enemy = enemies.generate_enemy()
+                enemy = enemies.generate_enemy(player.level)
                 player.take_damage(enemy["attack"])
                 if player.dead == False:
                     player.gain_experience(enemy["experience"])
                     player.gain_coins(enemy["coins"])
+                    #print(enemy["loot"])
+                    #print(f"{space_and.join(f'{item}: {amount}' for item, amount in enemy['loot'].items())}")
                     
-                    print(f"You killed a {enemy['name']}!\nEarned {enemy['coins']} coins and items lmao.\nGained {enemy['experience']} XP, {player.experience_for_next_level - player.experience} XP until next level.\nLost {enemy['attack']} HP, remaining HP: {player.health}/{player.max_health}")
+                    print(f"You killed a {enemy['name']}!\nEarned {enemy['coins']} coins and {space_and.join(f'{amount} {item}' for item, amount in enemy['loot'].items())}.\nGained {enemy['experience']} XP, {player.experience_for_next_level - player.experience} XP until next level.\nLost {enemy['attack']} HP, remaining HP: {player.health}/{player.max_health}")
                     player.collect_loot(enemy["loot"])
 
 
