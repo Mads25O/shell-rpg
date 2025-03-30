@@ -36,9 +36,9 @@ def main():
             if player.dead == False:
                 player.gain_experience(enemy["experience"])
                 player.gain_coins(enemy["coins"])
-                player.collect_loot(enemy["loot"])
                 
-                print(f"You killed a {enemy['name']}! You took {enemy['attack']} damage, gained {enemy['experience']} experience and got {enemy['coins']} coins. Your health: {player.health}")
+                print(f"You killed a {enemy['name']}!\nEarned {enemy['coins']} coins and items lmao.\nGained {enemy['experience']} XP, {player.experience_for_next_level - player.experience} XP until next level.\nLost {enemy['attack']} HP, remaining HP: {player.health}/{player.max_health}")
+                player.collect_loot(enemy["loot"])
 
             else:
                 try_again = input("Do you want to try again? - Yes / No -\n> ")

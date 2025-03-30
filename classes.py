@@ -102,7 +102,18 @@ class Player:
         else:
             print(f"{resource_name} not found.")
 
-    def collect_loot(self, loot_list):
+    def collect_loot(self, loot_dict):
+        for loot_item in loot_dict:
+            item_data = self.items_manager.get_item(loot_item)
+            if item_data:
+                if item_data["category"] == "resources":
+                    self.add_resource(loot_item, loot_dict[loot_item])
+                elif item_data["category"] == "consumables":
+                    self.add_consumable(loot_item, loot_dict[loot_item])
+                else:
+                    print(f"Warning: {loot_item} has unknown category!")
+                    '''
+        loot_list = ["Rotten Flesh", "Bones", "Rotten Flesh", "Rotten Flesh"]
         for loot_item in loot_list:
             item_data = self.items_manager.get_item(loot_item)
             if item_data:
@@ -111,7 +122,7 @@ class Player:
                 elif item_data["category"] == "consumables":
                     self.add_consumable(loot_item, 1)
                 else:
-                    print(f"Warning: {loot_item} has unknown category!")
+                    print(f"Warning: {loot_item} has unknown category!")'''
     
     def add_consumable(self, consumable_name, quantity):
         consumable = self.items_manager.get_item(consumable_name)
@@ -238,7 +249,9 @@ class Enemies:
     
     def get_loot(self, enemy):
         max_drops = random.randint(1, 5)
-        return random.choices(enemy["loot"], k=max_drops)
+        loot_list = random.choices(enemy["loot"], k=max_drops)
+        loot_dict = {key: loot_list.count(key) for key in set(loot_list)}
+        return loot_dict
         
 
 class Shop:
