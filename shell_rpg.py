@@ -50,8 +50,13 @@ def main():
 
         elif action.startswith('use'):
             action_split = action.split()
-            consumable_name = action_split[1]
-            player.use_consumable(consumable_name)
+            if len(action_split) > 1 and len(action_split) < 3:
+                consumable_name = action_split[1]
+                player.use_consumable(consumable_name)
+            else:
+                print("Usage: use [consumable]")
+
+            
 
         elif action == 'exit':
             running = False
