@@ -99,7 +99,6 @@ class Player:
                     "quantity" : quantity,
                     "description": resource["description"]
                 }
-            print(f"Added {quantity} {resource_name}(s) to your inventory.")
         else:
             print(f"{resource_name} not found.")
 
