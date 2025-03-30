@@ -74,9 +74,18 @@ class Player:
         self.dead = True
     
     def heal(self, amount):
-        self.health += amount
-        if self.health > self.max_health:
-            self.health = self.max_health
+        if self.health == self.max_health:
+            print("Already full health.")
+        else:
+            self.health += amount
+            #healing_applied = amount
+            if self.health > self.max_health:
+                healing_applied = amount - max(0, self.health - self.max_health)
+                self.health = self.max_health
+        
+        
+        return healing_applied
+
     
     ## ITEMS ##
     def add_resource(self, resource_name, quantity):
@@ -124,12 +133,11 @@ class Player:
         
         if matching_key and self.consumables[matching_key]["quantity"] > 0:
             healing_amount = self.consumables[matching_key]["healing"]
-            self.heal(healing_amount)
+            if healing_amount != 0:
+                healing_applied = self.heal(healing_amount)
+                print(f"Healed {healing_applied}. Health is now {self.health}.")
             
             self.consumables[matching_key]["quantity"] -= 1
-
-            print(f"Used {matching_key}. Health is now {self.health}.")
-
             if self.consumables[matching_key]["quantity"] <= 0:
                 del self.consumables[matching_key]
         else:

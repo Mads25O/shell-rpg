@@ -13,7 +13,6 @@ def main():
             #name = input("What is your name? > ")
             name = 'Mads'
             print(f"Welcome to Shell RPG {name}!")
-            player.add_consumable('Potion', 1)
             start = False
 
         action = input("What do you want to do? > ").lower()
@@ -49,7 +48,7 @@ def main():
                 elif try_again == 'no' or try_again == 'n':
                     running = False
 
-        elif action.startswith('heal'):
+        elif action.startswith('use'):
             action_split = action.split()
             consumable_name = action_split[1]
             player.use_consumable(consumable_name)
