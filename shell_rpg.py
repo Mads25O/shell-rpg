@@ -1,20 +1,22 @@
 import random
 from classes import Player, Enemies
+from actions import Player_Actions
 
 def main():
     running = True
 
     player = Player()
     enemies = Enemies()
+    player_actions = Player_Actions()
     start = True
-
-    space_and = " & "
     
     while running:
         if start == True:
             #name = input("What is your name? > ")
             name = 'Mads'
+            player.name = name
             print(f"Welcome to Shell RPG {name}!")
+            print(f"To get started, write 'help'")
             start = False
 
         elif player.dead == True:
@@ -29,45 +31,25 @@ def main():
             action = input("What do you want to do? > ").lower()
 
             if action == 'help':
-                print("Uhhh, haven't made it yet, sorry.")
+                player_actions.help()
 
             elif action == 'profile':
-                print(f"--- Profile for {name} ---")
-                print(f"Health: {player.health}")
-                print(f"Level: {player.level}")
-                print(f"Experience: {player.experience}/{player.experience_for_next_level}")
-                print(f"Coins: {player.coins}")
+                player_actions.profile(player)
             
             elif action == 'inv' or action == 'inventory':
                 player.inventory()
 
             elif action == 'hunt':
-                enemy = enemies.generate_enemy(player.level)
-                player.take_damage(enemy["attack"])
-                if player.dead == False:
-                    player.gain_experience(enemy["experience"])
-                    player.gain_coins(enemy["coins"])
-                    
-                    print(f"You killed a {enemy['name']}!")
-                    print(f"Earned {enemy['coins']} coins and {space_and.join(f'{amount} {item}' for item, amount in enemy['loot'].items())}.")
-                    print(f"Gained {enemy['experience']} XP, {player.experience_for_next_level - player.experience} XP until next level.")
-                    print(f"Lost {enemy['attack']} HP, remaining HP: {player.health}/{player.max_health}")
-                    
-                    player.collect_loot(enemy["loot"])
+                player_actions.hunt(player, enemies)
 
             elif action.startswith('use'):
-                action_split = action.split()
-                if len(action_split) > 1 and len(action_split) < 3:
-                    consumable_name = action_split[1]
-                    player.use_consumable(consumable_name)
-                else:
-                    print("Usage: use [consumable]")
+                player_actions.use_consumable(player, action)
 
             elif action == 'exit':
                 running = False
 
             elif action == 'buy':
-                pass
+                player_actions.buy(player)
                 
             else:
                 print("Don't know what you mean there, buddy. Type 'help' to read all commands.")

@@ -38,6 +38,7 @@ class Player:
         self.reset()
 
     def reset(self):
+        self.name = 'Placeholder'
         self.level = 1
         self.experience = 0
         self.experience_for_next_level = 100
